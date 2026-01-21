@@ -7,8 +7,7 @@
 
 <style>
 :root{
-  --cream:#FBF8F2;
-  --mint:#F2F7F2;
+  --bg:#F2F7F2;
   --panel:#FFFFFF;
   --text:#111827;
   --muted:#6B7280;
@@ -16,8 +15,7 @@
   --accent:#4F6CFF;
 }
 [data-theme="dark"]{
-  --cream:#020617;
-  --mint:#0F172A;
+  --bg:#0F172A;
   --panel:#020617;
   --text:#E5E7EB;
   --muted:#94A3B8;
@@ -28,45 +26,64 @@
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--mint);
+  background:var(--bg);
   color:var(--text);
 }
 
 /* ===== Header ===== */
 header{
-  background:var(--cream);
-  padding:56px 24px 72px;
+  padding:24px;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
 }
-.header{max-width:1100px;margin:auto}
-.top{display:flex;justify-content:space-between;align-items:center}
-h1{font-size:32px;margin:0}
-.sub{color:var(--muted);margin:12px 0 24px}
-
-.search{position:relative}
-.search::before{
-  content:"/";
-  position:absolute;
-  left:16px;top:50%;
-  transform:translateY(-50%);
-  color:#9CA3AF;
+.top{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
+h1{margin:0;font-size:22px}
 .search input{
-  width:360px;
-  max-width:100%;
-  padding:14px 16px 14px 40px;
+  padding:10px 14px;
   border-radius:999px;
   border:1px solid var(--border);
+  width:240px;
+}
+
+/* ===== Layout ===== */
+.layout{
+  max-width:1200px;
+  margin:24px auto;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:24px;
+  padding:0 16px;
+}
+
+/* ===== Sidebar ===== */
+aside{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:12px;
+}
+
+.cat{
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  color:var(--muted);
+}
+.cat.active{
+  background:rgba(79,108,255,.1);
+  color:var(--accent);
+  font-weight:600;
 }
 
 /* ===== Main ===== */
-main{
-  max-width:1100px;
-  margin:-48px auto 80px;
-  padding:48px 32px;
-}
-
-section{margin-bottom:48px}
-h2{font-size:14px;color:#6366F1;margin-bottom:16px}
+main section{margin-bottom:32px}
+h2{font-size:14px;color:var(--accent);margin-bottom:12px}
 
 .grid{
   display:grid;
@@ -77,17 +94,15 @@ h2{font-size:14px;color:#6366F1;margin-bottom:16px}
 .card{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:18px;
+  border-radius:16px;
   padding:16px;
   display:flex;
-  align-items:center;
-  gap:14px;
+  gap:12px;
   cursor:pointer;
   transition:.2s;
 }
 .card:hover{transform:translateY(-3px)}
 
-/* ===== Icon (兜底核心) ===== */
 .icon{
   width:44px;
   height:44px;
@@ -96,149 +111,102 @@ h2{font-size:14px;color:#6366F1;margin-bottom:16px}
   display:flex;
   align-items:center;
   justify-content:center;
-  position:relative;
   flex-shrink:0;
 }
 [data-theme="dark"] .icon{background:#020617}
 
-/* fallback 字母（仅无图标时显示） */
 .icon::after{
   content:attr(data-fallback);
   font-weight:600;
-  font-size:16px;
   color:var(--accent);
 }
-
-/* 有图标时，彻底隐藏 fallback */
 .icon.has-img::after{display:none}
+.icon img{width:22px}
 
-.icon img{
-  width:22px;
-  height:22px;
-  display:block;
-}
-
-/* ===== Meta ===== */
 .meta strong{display:block}
 .meta span{font-size:13px;color:var(--muted)}
 
-.star{
-  margin-left:auto;
-  cursor:pointer;
-  color:#FACC15;
-  opacity:.35;
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  aside{display:flex;overflow:auto}
+  .cat{white-space:nowrap}
 }
-.star.active{opacity:1}
-
-footer{text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header">
-    <div class="top">
-      <h1>导航</h1>
-      <div id="theme" style="cursor:pointer">🌙</div>
-    </div>
-    <div class="sub">部署 · 监控 · 解码 · 域名 · AI</div>
-    <div class="search">
-      <input id="search" placeholder="搜索站点…" />
+  <div class="top">
+    <h1>导航</h1>
+    <div>
+      <input id="search" placeholder="搜索…" />
+      <span id="theme" style="cursor:pointer;margin-left:12px">🌙</span>
     </div>
   </div>
 </header>
 
-<main>
-  <section id="content"></section>
-</main>
-
-<footer>© 2026 Navigation</footer>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main id="content"></main>
+</div>
 
 <script>
 const data = [
- {cat:"AI 平台",id:"chatgpt",name:"ChatGPT",desc:"OpenAI",url:"https://chat.openai.com",icon:"openai"},
- {cat:"AI 平台",id:"gemini",name:"Gemini",desc:"Google",url:"https://gemini.google.com",icon:"google"},
- {cat:"AI 平台",id:"deepseek",name:"DeepSeek",desc:"模型平台",url:"https://www.deepseek.com",icon:""},
- {cat:"AI 平台",id:"claude",name:"Claude",desc:"Anthropic",url:"https://claude.ai",icon:"anthropic"},
+ {cat:"AI 平台",name:"ChatGPT",desc:"OpenAI",url:"https://chat.openai.com",icon:"openai"},
+ {cat:"AI 平台",name:"Gemini",desc:"Google",url:"https://gemini.google.com",icon:"google"},
+ {cat:"AI 平台",name:"DeepSeek",desc:"模型平台",url:"https://www.deepseek.com",icon:""},
+ {cat:"AI 平台",name:"Claude",desc:"Anthropic",url:"https://claude.ai",icon:"anthropic"},
 
- {cat:"部署 / 平台",id:"github",name:"GitHub",desc:"代码托管",url:"https://github.com",icon:"github"},
- {cat:"部署 / 平台",id:"cloudflare",name:"Cloudflare",desc:"CDN / 部署",url:"https://dash.cloudflare.com",icon:"cloudflare"},
- {cat:"部署 / 平台",id:"render",name:"Render",desc:"应用部署",url:"https://dashboard.render.com",icon:""},
- {cat:"部署 / 平台",id:"koyeb",name:"Koyeb",desc:"应用部署",url:"https://www.koyeb.com",icon:""},
- {cat:"部署 / 平台",id:"zeabur",name:"Zeabur",desc:"应用部署",url:"https://zeabur.app",icon:""},
- {cat:"部署 / 平台",id:"claw",name:"ClawCloud",desc:"应用部署",url:"https://run.claw.cloud",icon:""},
- {cat:"部署 / 平台",id:"leaflow",name:"Leawlof",desc:"应用部署",url:"https://leaflow.net/login",icon:""},
+ {cat:"部署 / 平台",name:"GitHub",desc:"代码托管",url:"https://github.com",icon:"github"},
+ {cat:"部署 / 平台",name:"Cloudflare",desc:"CDN / 部署",url:"https://dash.cloudflare.com",icon:"cloudflare"},
+ {cat:"部署 / 平台",name:"Render",desc:"应用部署",url:"https://dashboard.render.com",icon:""},
 
- {cat:"监控 / 解码 / 检测",id:"uptime",name:"Uptime Kuma",desc:"服务监控",url:"https://ugyy.enico.de5.net/status/eniac",icon:""},
- {cat:"监控 / 解码 / 检测",id:"cftrace",name:"CF Trace",desc:"网络检测",url:"https://www.cloudflare.com/cdn-cgi/trace",icon:"cloudflare"},
- {cat:"监控 / 解码 / 检测",id:"ippure",name:"IPPure",desc:"IP 查询",url:"https://ippure.com",icon:""},
- {cat:"监控 / 解码 / 检测",id:"scam",name:"Scamalytics",desc:"风险分析",url:"https://scamalytics.com",icon:"shield"},
- {cat:"监控 / 解码 / 检测",id:"dnscheck",name:"DNSChecker",desc:"DNS 检测",url:"https://dnschecker.org",icon:""},
- {cat:"监控 / 解码 / 检测",id:"proxyip",name:"ProxyIP",desc:"代理检测",url:"https://proxyip.chatkg.qzz.io",icon:""},
- {cat:"监控 / 解码 / 检测",id:"base64",name:"Base64 Decode",desc:"编码解码",url:"https://www.base64decode.org/zh/",icon:"code"},
+ {cat:"监控 / 解码 / 检测",name:"DNSChecker",desc:"DNS 检测",url:"https://dnschecker.org",icon:""},
+ {cat:"监控 / 解码 / 检测",name:"Base64 Decode",desc:"编码解码",url:"https://www.base64decode.org/zh/",icon:"code"},
 
- {cat:"域名 / DNS",id:"dnshe",name:"DNSHe",desc:"域名注册",url:"https://dnshe.com",icon:""},
- {cat:"域名 / DNS",id:"gvuy",name:"GV.UY",desc:"短域名",url:"https://gv.uy",icon:""},
- {cat:"域名 / DNS",id:"domain",name:"Digital",desc:"域名注册",url:"https://dash.domain.digitalplat.org/auth/register",icon:""},
- {cat:"域名 / DNS",id:"l53",name:"L53",desc:"域名管理",url:"https://customer.l53.net/",icon:""}
+ {cat:"域名 / DNS",name:"DNSHe",desc:"域名注册",url:"https://dnshe.com",icon:""},
+ {cat:"域名 / DNS",name:"GV.UY",desc:"短域名",url:"https://gv.uy",icon:""}
 ];
 
-const pinned=JSON.parse(localStorage.getItem("pinned")||"[]");
-let recent=JSON.parse(localStorage.getItem("recent")||"[]");
-const content=document.getElementById("content");
+const sidebar = document.getElementById("sidebar");
+const content = document.getElementById("content");
+
+const cats = [...new Set(data.map(d=>d.cat))];
+let current = cats[0];
+
+cats.forEach(c=>{
+  const d=document.createElement("div");
+  d.className="cat";
+  d.textContent=c;
+  d.onclick=()=>{current=c;render()};
+  sidebar.append(d);
+});
 
 function makeCard(d){
   const c=document.createElement("div");
   c.className="card";
-  const letter=d.name[0].toUpperCase();
-  const hasIcon=!!d.icon;
-
   c.innerHTML=`
-    <div class="icon ${hasIcon?'has-img':''}" data-fallback="${letter}">
-      ${hasIcon?`<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${d.icon}.svg" onerror="this.parentNode.classList.remove('has-img');this.remove()">`:""}
+    <div class="icon ${d.icon?'has-img':''}" data-fallback="${d.name[0]}">
+      ${d.icon?`<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${d.icon}.svg">`:""}
     </div>
     <div class="meta"><strong>${d.name}</strong><span>${d.desc}</span></div>
-    <div class="star ${pinned.includes(d.id)?"active":""}">★</div>
   `;
-
-  c.onclick=()=>{
-    recent=[d.id,...recent.filter(x=>x!==d.id)].slice(0,6);
-    localStorage.setItem("recent",JSON.stringify(recent));
-    window.open(d.url,"_blank");
-  };
-
-  c.querySelector(".star").onclick=e=>{
-    e.stopPropagation();
-    pinned.includes(d.id)?pinned.splice(pinned.indexOf(d.id),1):pinned.push(d.id);
-    localStorage.setItem("pinned",JSON.stringify(pinned));
-    render();
-  };
-
+  c.onclick=()=>window.open(d.url,"_blank");
   return c;
 }
 
 function render(){
   content.innerHTML="";
-  document.querySelector("#pinned .grid").innerHTML="";
-  document.querySelector("#recent .grid").innerHTML="";
-
-  pinned.forEach(id=>{
-    const d=data.find(x=>x.id===id);
-    d&&document.querySelector("#pinned .grid").append(makeCard(d));
+  document.querySelectorAll(".cat").forEach(c=>{
+    c.classList.toggle("active",c.textContent===current);
   });
 
-  recent.forEach(id=>{
-    const d=data.find(x=>x.id===id);
-    d&&document.querySelector("#recent .grid").append(makeCard(d));
-  });
-
-  [...new Set(data.map(d=>d.cat))].forEach(cat=>{
-    const s=document.createElement("section");
-    s.innerHTML=`<h2>${cat}</h2><div class="grid"></div>`;
-    data.filter(d=>d.cat===cat).forEach(d=>s.querySelector(".grid").append(makeCard(d)));
-    content.append(s);
-  });
+  const s=document.createElement("section");
+  s.innerHTML=`<h2>${current}</h2><div class="grid"></div>`;
+  data.filter(d=>d.cat===current)
+      .forEach(d=>s.querySelector(".grid").append(makeCard(d)));
+  content.append(s);
 }
 render();
 
@@ -252,7 +220,6 @@ search.oninput=e=>{
 theme.onclick=()=>{
   const t=document.documentElement.dataset.theme==="dark"?"":"dark";
   document.documentElement.dataset.theme=t;
-  localStorage.setItem("theme",t);
   theme.textContent=t==="dark"?"☀️":"🌙";
 };
 </script>
