@@ -144,121 +144,147 @@
 </head>
 
 <body>
-  <header>
-    <h1>导航</h1>
-    <div class="search">
-      <input id="search" placeholder="搜索站点…" />
+<header>
+  <h1>导航</h1>
+  <div class="search">
+    <input id="search" placeholder="搜索站点…" />
+  </div>
+</header>
+
+<main>
+
+  <!-- 常用 -->
+  <section>
+    <h2>常用</h2>
+    <div class="grid" id="fav"></div>
+  </section>
+
+  <!-- 部署 / 平台 -->
+  <section>
+    <h2>部署 / 平台</h2>
+    <div class="grid">
+      <a class="card" data-name="github 代码 托管" href="https://github.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg">
+        </div>
+        <div class="meta"><strong>GitHub</strong><span>代码托管</span></div>
+      </a>
+
+      <a class="card" data-name="cloudflare cdn 部署" href="https://dash.cloudflare.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
+        </div>
+        <div class="meta"><strong>Cloudflare</strong><span>部署 / CDN</span></div>
+      </a>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section>
-      <h2>常用</h2>
-      <div class="grid" id="fav"></div>
-    </section>
+  <!-- 检测工具 -->
+  <section>
+    <h2>检测工具</h2>
+    <div class="grid">
+      <a class="card" data-name="ippure ip 查询" href="https://ippure.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/globe.svg">
+        </div>
+        <div class="meta"><strong>IPPure</strong><span>IP 查询</span></div>
+      </a>
 
-    <section>
-      <h2>工具 / 平台</h2>
-      <div class="grid">
-        <!-- GitHub -->
-        <a class="card" data-name="github" href="https://github.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg">
-          </div>
-          <div class="meta"><strong>GitHub</strong><span>代码托管</span></div>
-        </a>
+      <a class="card" data-name="scamalytics 风险" href="https://scamalytics.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/shield.svg">
+        </div>
+        <div class="meta"><strong>Scamalytics</strong><span>风险分析</span></div>
+      </a>
 
-        <!-- Cloudflare -->
-        <a class="card" data-name="cloudflare" href="https://dash.cloudflare.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
-          </div>
-          <div class="meta"><strong>Cloudflare</strong><span>控制台</span></div>
-        </a>
+      <a class="card" data-name="cf trace 网络" href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
+        </div>
+        <div class="meta"><strong>CF Trace</strong><span>网络检测</span></div>
+      </a>
 
-        <a class="card" data-name="cf-trace" href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
-          </div>
-          <div class="meta"><strong>CF Trace</strong><span>网络信息</span></div>
-        </a>
+      <a class="card" data-name="base64 编码 解码" href="https://www.base64decode.org/zh/" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/code.svg">
+        </div>
+        <div class="meta"><strong>Base64 Decode</strong><span>编码解码</span></div>
+      </a>
+    </div>
+  </section>
 
-        <!-- Google / Apple -->
-        <a class="card" data-name="google" href="https://www.google.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg">
-          </div>
-          <div class="meta"><strong>Google</strong><span>搜索</span></div>
-        </a>
+  <!-- 官方 -->
+  <section>
+    <h2>官方 / 搜索</h2>
+    <div class="grid">
+      <a class="card" data-name="google 搜索" href="https://www.google.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg">
+        </div>
+        <div class="meta"><strong>Google</strong><span>搜索</span></div>
+      </a>
 
-        <a class="card" data-name="apple" href="https://www.apple.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg">
-          </div>
-          <div class="meta"><strong>Apple</strong><span>官网</span></div>
-        </a>
+      <a class="card" data-name="apple 官网" href="https://www.apple.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg">
+        </div>
+        <div class="meta"><strong>Apple</strong><span>官网</span></div>
+      </a>
+    </div>
+  </section>
 
-        <!-- 网络工具 -->
-        <a class="card" data-name="ippure" href="https://ippure.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/globe.svg">
-          </div>
-          <div class="meta"><strong>IPPure</strong><span>IP 查询</span></div>
-        </a>
+  <!-- 域名 / DNS -->
+  <section>
+    <h2>域名 / DNS</h2>
+    <div class="grid">
+      <a class="card" data-name="dns dnshe 域名" href="https://dnshe.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/internetexplorer.svg">
+        </div>
+        <div class="meta"><strong>DNSHe</strong><span>DNS 查询</span></div>
+      </a>
+    </div>
+  </section>
 
-        <a class="card" data-name="scamalytics" href="https://scamalytics.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/shield.svg">
-          </div>
-          <div class="meta"><strong>Scamalytics</strong><span>风险分析</span></div>
-        </a>
+</main>
 
-        <a class="card" data-name="dnshe" href="https://dnshe.com" target="_blank">
-          <div class="icon-wrap">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/internetexplorer.svg">
-          </div>
-          <div class="meta"><strong>DNSHe</strong><span>DNS 查询</span></div>
-        </a>
-      </div>
-    </section>
-  </main>
+<footer>
+  © 2026 · Navigation
+</footer>
 
-  <footer>
-    © 2026 · Navigation
-  </footer>
+<script>
+  const search = document.getElementById("search");
+  const cards = [...document.querySelectorAll(".card")];
+  const fav = document.getElementById("fav");
+  const clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
 
-  <script>
-    const search = document.getElementById("search");
-    const cards = [...document.querySelectorAll(".card")];
-    const fav = document.getElementById("fav");
-    const clicks = JSON.parse(localStorage.getItem("clicks") || "{}");
-
-    cards.forEach(card => {
-      const name = card.dataset.name;
-      card.addEventListener("click", () => {
-        clicks[name] = (clicks[name] || 0) + 1;
-        localStorage.setItem("clicks", JSON.stringify(clicks));
-      });
+  cards.forEach(card => {
+    const name = card.dataset.name;
+    card.addEventListener("click", () => {
+      clicks[name] = (clicks[name] || 0) + 1;
+      localStorage.setItem("clicks", JSON.stringify(clicks));
     });
+  });
 
-    cards
-      .filter(c => clicks[c.dataset.name])
-      .sort((a,b) => clicks[b.dataset.name] - clicks[a.dataset.name])
-      .forEach(c => fav.appendChild(c.cloneNode(true)));
+  cards
+    .filter(c => clicks[c.dataset.name])
+    .sort((a, b) => clicks[b.dataset.name] - clicks[a.dataset.name])
+    .forEach(c => fav.appendChild(c.cloneNode(true)));
 
-    search.addEventListener("input", e => {
-      const v = e.target.value.toLowerCase();
-      cards.forEach(c => {
-        c.style.display = c.dataset.name.includes(v) ? "" : "none";
-      });
+  search.addEventListener("input", e => {
+    const v = e.target.value.toLowerCase();
+    cards.forEach(c => {
+      c.style.display = c.dataset.name.toLowerCase().includes(v) ? "" : "none";
     });
+  });
 
-    document.addEventListener("keydown", e => {
-      if (e.key === "/" && document.activeElement !== search) {
-        e.preventDefault();
-        search.focus();
-      }
-    });
-  </script>
+  document.addEventListener("keydown", e => {
+    if (e.key === "/" && document.activeElement !== search) {
+      e.preventDefault();
+      search.focus();
+    }
+  });
+</script>
+
 </body>
 </html>
