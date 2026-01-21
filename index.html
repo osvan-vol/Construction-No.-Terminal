@@ -131,18 +131,9 @@ section{margin-bottom:32px}
 <section>
 <div class="section-head">AI 平台</div>
 <div class="grid">
-<a class="card" href="https://chat.openai.com" target="_blank">
-  <div class="icon">C</div>
-  <div><div class="title">ChatGPT</div><div class="desc">OpenAI</div></div>
-</a>
-<a class="card" href="https://gemini.google.com" target="_blank">
-  <div class="icon">G</div>
-  <div><div class="title">Gemini</div><div class="desc">Google</div></div>
-</a>
-<a class="card" href="https://www.deepseek.com" target="_blank">
-  <div class="icon">D</div>
-  <div><div class="title">DeepSeek</div><div class="desc">模型平台</div></div>
-</a>
+<a class="card" href="https://chat.openai.com" target="_blank"><div class="icon">C</div><div><div class="title">ChatGPT</div><div class="desc">OpenAI</div></div></a>
+<a class="card" href="https://gemini.google.com" target="_blank"><div class="icon">G</div><div><div class="title">Gemini</div><div class="desc">Google</div></div></a>
+<a class="card" href="https://www.deepseek.com" target="_blank"><div class="icon">D</div><div><div class="title">DeepSeek</div><div class="desc">模型平台</div></div></a>
 </div>
 </section>
 
@@ -189,18 +180,20 @@ section{margin-bottom:32px}
 </main>
 
 <script>
-/* ========= favicon 自动显示 ========= */
+/* ========= favicon：有才显示，没有就保留字母 ========= */
 document.querySelectorAll('.icon').forEach(icon=>{
   const link = icon.closest('a');
-  if(!link || !link.href.startsWith('http')) return;
+  if(!link) return;
 
   let hostname;
-  try {
+  try{
     hostname = new URL(link.href).hostname;
-  } catch(e){ return; }
+  }catch{
+    return;
+  }
 
   const img = new Image();
-  img.src = `https://www.google.com/s2/favicons?sz=64&domain=${hostname}`;
+  img.src = `https://www.google.com/s2/favicons?sz=64&domain=${hostname}&fallback=404`;
 
   img.onload = ()=>{
     icon.textContent='';
@@ -210,7 +203,7 @@ document.querySelectorAll('.icon').forEach(icon=>{
 
 /* ========= 搜索：站内优先，失败跳 Google ========= */
 const input = document.querySelector('.search input');
-const cards = Array.from(document.querySelectorAll('.card'));
+const cards = document.querySelectorAll('.card');
 
 input.addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
