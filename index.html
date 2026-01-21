@@ -1,309 +1,240 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>导航</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root{
-  --cream:#FBF8F2;
-  --mint:#F2F7F2;
+  --bg:#F2F7F2;
   --panel:#FFFFFF;
-  --border:#E6E8EC;
+  --cream:#FBF8F2;
   --text:#111827;
   --muted:#6B7280;
+  --border:#E5E7EB;
   --accent:#4F6CFF;
-  --radius:18px;
+}
+[data-theme="dark"]{
+  --bg:#0F172A;
+  --panel:#020617;
+  --cream:#020617;
+  --text:#E5E7EB;
+  --muted:#94A3B8;
+  --border:#1E293B;
+  --accent:#7C83FF;
 }
 
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:var(--mint);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
   color:var(--text);
 }
 
-/* ===== Header ===== */
+/* Header */
 header{
   background:var(--cream);
-  padding:64px 24px 56px;
+  padding:56px 24px 40px;
 }
-
-.header-inner{
+.header{
   max-width:1100px;
   margin:auto;
 }
-
 h1{
-  font-size:34px;
-  margin:0 0 10px;
-  font-weight:800;
   display:flex;
   align-items:center;
   gap:10px;
+  font-size:32px;
 }
+h1::before{content:"●";color:var(--accent);font-size:14px}
+.sub{color:var(--muted);margin-bottom:24px}
 
-h1::before{
-  content:"●";
-  color:var(--accent);
-  font-size:14px;
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.subtitle{
-  color:var(--muted);
-  margin-bottom:32px;
+.search input{
+  width:360px;
+  max-width:100%;
+  padding:14px 16px 14px 40px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--panel);
 }
-
-.search{
-  max-width:520px;
-  position:relative;
-}
-
+.search{position:relative}
 .search::before{
   content:"/";
   position:absolute;
-  left:16px;
-  top:50%;
+  left:16px;top:50%;
   transform:translateY(-50%);
   color:#9CA3AF;
-  font-weight:600;
+}
+.toggle{
+  cursor:pointer;
+  font-size:20px;
 }
 
-.search input{
-  width:100%;
-  padding:16px 18px 16px 46px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  font-size:15px;
-  background:#fff;
-  box-shadow:0 10px 24px rgba(0,0,0,.08);
-  outline:none;
-}
-
-/* ===== 连接层 ===== */
-.divider{
-  height:32px;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,.06),
-    rgba(0,0,0,0)
-  );
-}
-
-/* ===== 内容托盘 ===== */
+/* Main */
 main{
   max-width:1100px;
-  margin:-24px auto 80px;
-  padding:48px 32px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(8px);
-  border-radius:32px;
-  box-shadow:0 30px 60px rgba(0,0,0,.12);
+  margin:-20px auto 80px;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(10px);
+  border-radius:28px;
+  padding:40px 32px;
 }
-
 section{margin-bottom:48px}
-
-section h2{
+h2{
   font-size:14px;
-  font-weight:700;
-  color:#4338CA;
-  margin-bottom:18px;
-  letter-spacing:.04em;
+  color:#6366F1;
+  margin-bottom:16px;
 }
 
-/* ===== Cards ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:18px;
+  gap:16px;
 }
-
 .card{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:18px;
-  border-radius:20px;
   background:var(--panel);
   border:1px solid var(--border);
-  text-decoration:none;
-  color:var(--text);
-  transition:.2s ease;
+  border-radius:18px;
+  padding:16px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  cursor:pointer;
+  transition:.2s;
 }
-
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 14px 28px rgba(0,0,0,.12);
-}
-
+.card:hover{transform:translateY(-3px)}
 .icon{
-  width:44px;
-  height:44px;
+  width:42px;height:42px;
   border-radius:12px;
   background:#F1F5F9;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:flex;align-items:center;justify-content:center;
 }
-
 .icon img{width:22px;height:22px}
-
-.meta strong{display:block;font-size:15px}
+.meta strong{display:block}
 .meta span{font-size:13px;color:var(--muted)}
-
-footer{
-  text-align:center;
-  padding:40px 0;
-  font-size:13px;
-  color:var(--muted);
+.star{
+  margin-left:auto;
+  font-size:18px;
+  cursor:pointer;
+  color:#FACC15;
+  opacity:.4;
 }
+.star.active{opacity:1}
+
+footer{text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-inner">
-    <h1>导航</h1>
-    <div class="subtitle">工具 · 部署 · 解码 · 检测 · 监控 · 域名</div>
+  <div class="header">
+    <div class="topbar">
+      <h1>导航</h1>
+      <div class="toggle" id="themeToggle">🌙</div>
+    </div>
+    <div class="sub">AI · 部署 · 监控 · DNS</div>
     <div class="search">
-      <input id="search" placeholder="搜索 · GitHub / 部署 / DNS / 监控…" />
+      <input id="search" placeholder="搜索 / ChatGPT / DNS / 部署…" />
     </div>
   </div>
 </header>
 
-<div class="divider"></div>
-
 <main>
-
-<!-- 部署 / 平台 -->
-<section>
-<h2>部署 / 平台</h2>
-<div class="grid">
-
-<a class="card" data-name="github" href="https://github.com" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg"></div>
-<div class="meta"><strong>GitHub</strong><span>代码托管</span></div>
-</a>
-
-<a class="card" data-name="cloudflare" href="https://dash.cloudflare.com" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg"></div>
-<div class="meta"><strong>Cloudflare</strong><span>部署 / CDN</span></div>
-</a>
-
-<a class="card" data-name="render" href="https://dashboard.render.com/" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg"></div>
-<div class="meta"><strong>Render</strong><span>部署平台</span></div>
-</a>
-
-<a class="card" data-name="claw cloud" href="https://run.claw.cloud/" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg"></div>
-<div class="meta"><strong>Claw Cloud</strong><span>爪云</span></div>
-</a>
-
-<a class="card" data-name="zeabur" href="https://zeabur.app/" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg"></div>
-<div class="meta"><strong>Zeabur</strong><span>部署平台</span></div>
-</a>
-
-<a class="card" data-name="koyeb" href="https://www.koyeb.com/" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/koyeb.svg"></div>
-<div class="meta"><strong>Koyeb</strong><span>部署平台</span></div>
-</a>
-
-<a class="card" data-name="leaflow" href="https://leaflow.net/login" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leaflet.svg"></div>
-<div class="meta"><strong>Leaflow</strong><span>部署平台</span></div>
-</a>
-
-</div>
-</section>
-
-<!-- 监控 / 解码 / 检测 -->
-<section>
-<h2>监控 / 解码 / 检测</h2>
-<div class="grid">
-
-<a class="card" data-name="uptime kuma" href="https://ugyy.enico.de5.net/status/eniac" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/uptimekuma.svg"></div>
-<div class="meta"><strong>Uptime Kuma</strong><span>服务监控</span></div>
-</a>
-
-<a class="card" data-name="cf trace" href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg"></div>
-<div class="meta"><strong>CF Trace</strong><span>网络检测</span></div>
-</a>
-
-<a class="card" data-name="dns checker" href="https://dnschecker.org" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/internetexplorer.svg"></div>
-<div class="meta"><strong>DNSChecker</strong><span>DNS 检测</span></div>
-</a>
-
-<a class="card" data-name="proxy ip" href="https://proxyip.chatkg.qzz.io" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/shield.svg"></div>
-<div class="meta"><strong>ProxyIP</strong><span>代理检测</span></div>
-</a>
-
-<a class="card" data-name="base64" href="https://www.base64decode.org/zh/" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/code.svg"></div>
-<div class="meta"><strong>Base64 Decode</strong><span>编码解码</span></div>
-</a>
-
-<a class="card" data-name="ippure" href="https://ippure.com" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/globe.svg"></div>
-<div class="meta"><strong>IPPure</strong><span>IP 查询</span></div>
-</a>
-
-</div>
-</section>
-
-<!-- 域名 / DNS -->
-<section>
-<h2>域名 / DNS</h2>
-<div class="grid">
-
-<a class="card" data-name="gv uy" href="https://gv.uy" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/link.svg"></div>
-<div class="meta"><strong>gv.uy</strong><span>域名服务</span></div>
-</a>
-
-<a class="card" data-name="dnshe" href="https://dnshe.com" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/world.svg"></div>
-<div class="meta"><strong>DNSHe</strong><span>DNS 查询</span></div>
-</a>
-
-<a class="card" data-name="digitalplat" href="https://dash.domain.digitalplat.org/auth/register" target="_blank">
-<div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/world.svg"></div>
-<div class="meta"><strong>DigitalPlat</strong><span>域名注册</span></div>
-</a>
-
-</div>
-</section>
-
+  <section id="pinned"><h2>⭐ 常用 AI</h2><div class="grid"></div></section>
+  <section id="recent"><h2>🕘 最近使用</h2><div class="grid"></div></section>
+  <section id="ai"><h2>AI / 大模型</h2><div class="grid"></div></section>
 </main>
 
-<footer>© 2026 · Navigation</footer>
+<footer>© 2026 Navigation</footer>
 
 <script>
-const search=document.getElementById("search");
-const cards=[...document.querySelectorAll(".card")];
+/* =======================
+   JSON 数据配置区
+======================= */
+const sites = [
+ {id:"chatgpt",cat:"ai",name:"ChatGPT",desc:"OpenAI",url:"https://chat.openai.com",icon:"openai"},
+ {id:"gemini",cat:"ai",name:"Gemini",desc:"Google",url:"https://gemini.google.com",icon:"google"},
+ {id:"deepseek",cat:"ai",name:"DeepSeek",desc:"国产模型",url:"https://www.deepseek.com",icon:"deepin"},
+ {id:"claude",cat:"ai",name:"Claude",desc:"Anthropic",url:"https://claude.ai",icon:"anthropic"}
+];
 
-search.addEventListener("input",e=>{
-  const v=e.target.value.toLowerCase();
-  cards.forEach(c=>{
-    c.style.display=c.dataset.name.includes(v)?"":"none";
-  });
-});
+/* =======================
+   状态
+======================= */
+const pinned = JSON.parse(localStorage.getItem("pinned")||"[]");
+let recent = JSON.parse(localStorage.getItem("recent")||"[]");
 
-document.addEventListener("keydown",e=>{
-  if(e.key==="/"&&document.activeElement!==search){
-    e.preventDefault();
-    search.focus();
-  }
-});
+/* =======================
+   渲染
+======================= */
+const makeCard = s => {
+ const c=document.createElement("div");
+ c.className="card";
+ c.innerHTML=`
+  <div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${s.icon}.svg"></div>
+  <div class="meta"><strong>${s.name}</strong><span>${s.desc}</span></div>
+  <div class="star ${pinned.includes(s.id)?"active":""}">★</div>`;
+ c.onclick=()=>{
+   recent=[s.id,...recent.filter(i=>i!==s.id)].slice(0,6);
+   localStorage.setItem("recent",JSON.stringify(recent));
+   window.open(s.url,"_blank");
+ };
+ c.querySelector(".star").onclick=e=>{
+   e.stopPropagation();
+   const i=pinned.indexOf(s.id);
+   i>-1?pinned.splice(i,1):pinned.push(s.id);
+   localStorage.setItem("pinned",JSON.stringify(pinned));
+   render();
+ };
+ return c;
+};
+
+function render(){
+ document.querySelectorAll(".grid").forEach(g=>g.innerHTML="");
+ pinned.forEach(id=>{
+  const s=sites.find(x=>x.id===id);
+  s && document.querySelector("#pinned .grid").append(makeCard(s));
+ });
+ recent.forEach(id=>{
+  const s=sites.find(x=>x.id===id);
+  s && document.querySelector("#recent .grid").append(makeCard(s));
+ });
+ sites.filter(s=>s.cat==="ai").forEach(s=>{
+  document.querySelector("#ai .grid").append(makeCard(s));
+ });
+}
+render();
+
+/* =======================
+   搜索
+======================= */
+search.oninput=e=>{
+ const v=e.target.value.toLowerCase();
+ document.querySelectorAll(".card").forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(v)?"":"none";
+ });
+};
+
+/* =======================
+   主题切换
+======================= */
+const toggle=document.getElementById("themeToggle");
+const saved=localStorage.getItem("theme");
+if(saved){document.documentElement.dataset.theme=saved}
+toggle.onclick=()=>{
+ const t=document.documentElement.dataset.theme==="dark"?"":"dark";
+ document.documentElement.dataset.theme=t;
+ localStorage.setItem("theme",t);
+ toggle.textContent=t==="dark"?"☀️":"🌙";
+};
 </script>
 
 </body>
