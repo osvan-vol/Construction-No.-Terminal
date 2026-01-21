@@ -76,12 +76,10 @@
       padding:32px 24px 40px;
     }
 
-    section{
-      margin-bottom:32px; /* 核心：压缩 section 间距 */
-    }
+    section{margin-bottom:32px}
 
     .section-head{
-      margin-bottom:12px; /* 标题贴近内容 */
+      margin-bottom:12px;
       font-size:14px;
       font-weight:600;
       color:var(--primary);
@@ -89,7 +87,7 @@
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
       gap:16px;
     }
 
@@ -103,7 +101,7 @@
       gap:14px;
       text-decoration:none;
       color:inherit;
-      transition:transform .15s ease,box-shadow .15s ease;
+      transition:.15s ease;
     }
     .card:hover{
       transform:translateY(-2px);
@@ -120,21 +118,8 @@
       font-weight:600;
       color:var(--primary);
     }
-    .title{
-      font-weight:600;
-      font-size:15px;
-    }
-    .desc{
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    @media(max-width:900px){
-      .grid{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:480px){
-      .grid{grid-template-columns:1fr}
-    }
+    .title{font-weight:600;font-size:15px}
+    .desc{font-size:13px;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -151,46 +136,51 @@
 
 <main>
 
-  <section>
-    <div class="section-head">AI 平台</div>
-    <div class="grid">
-      <a class="card" href="https://chat.openai.com" target="_blank">
-        <div class="icon">C</div>
-        <div><div class="title">ChatGPT</div><div class="desc">OpenAI</div></div>
-      </a>
-      <a class="card" href="https://gemini.google.com" target="_blank">
-        <div class="icon">G</div>
-        <div><div class="title">Gemini</div><div class="desc">Google</div></div>
-      </a>
-      <a class="card" href="https://www.deepseek.com" target="_blank">
-        <div class="icon">D</div>
-        <div><div class="title">DeepSeek</div><div class="desc">模型平台</div></div>
-      </a>
-      <a class="card" href="https://claude.ai" target="_blank">
-        <div class="icon">AI</div>
-        <div><div class="title">Claude</div><div class="desc">Anthropic</div></div>
-      </a>
-    </div>
-  </section>
+<!-- AI -->
+<section>
+  <div class="section-head">AI 平台</div>
+  <div class="grid">
+    <a class="card" href="https://chat.openai.com" target="_blank"><div class="icon">C</div><div><div class="title">ChatGPT</div><div class="desc">OpenAI</div></div></a>
+    <a class="card" href="https://gemini.google.com" target="_blank"><div class="icon">G</div><div><div class="title">Gemini</div><div class="desc">Google</div></div></a>
+    <a class="card" href="https://www.deepseek.com" target="_blank"><div class="icon">D</div><div><div class="title">DeepSeek</div><div class="desc">模型平台</div></div></a>
+    <a class="card" href="https://claude.ai" target="_blank"><div class="icon">AI</div><div><div class="title">Claude</div><div class="desc">Anthropic</div></div></a>
+  </div>
+</section>
 
-  <section>
-    <div class="section-head">部署 / 平台</div>
-    <div class="grid">
-      <a class="card" href="https://github.com" target="_blank"><div class="icon">GH</div><div><div class="title">GitHub</div><div class="desc">代码托管</div></div></a>
-      <a class="card" href="https://cloudflare.com" target="_blank"><div class="icon">CF</div><div><div class="title">Cloudflare</div><div class="desc">CDN / 部署</div></div></a>
-      <a class="card" href="https://render.com" target="_blank"><div class="icon">R</div><div><div class="title">Render</div><div class="desc">应用部署</div></div></a>
-      <a class="card" href="https://www.koyeb.com" target="_blank"><div class="icon">K</div><div><div class="title">Koyeb</div><div class="desc">应用部署</div></div></a>
-    </div>
-  </section>
+<!-- Deploy -->
+<section>
+  <div class="section-head">部署 / 平台</div>
+  <div class="grid">
+    <a class="card" href="https://github.com" target="_blank"><div class="icon">GH</div><div><div class="title">GitHub</div><div class="desc">代码托管</div></div></a>
+    <a class="card" href="https://cloudflare.com" target="_blank"><div class="icon">CF</div><div><div class="title">Cloudflare</div><div class="desc">CDN / 部署</div></div></a>
+    <a class="card" href="https://render.com" target="_blank"><div class="icon">R</div><div><div class="title">Render</div><div class="desc">应用部署</div></div></a>
+    <a class="card" href="https://www.koyeb.com" target="_blank"><div class="icon">K</div><div><div class="title">Koyeb</div><div class="desc">应用部署</div></div></a>
+    <a class="card" href="https://zeabur.app" target="_blank"><div class="icon">Z</div><div><div class="title">Zeabur</div><div class="desc">应用部署</div></div></a>
+    <a class="card" href="https://run.claw.cloud" target="_blank"><div class="icon">C</div><div><div class="title">ClawCloud</div><div class="desc">应用部署</div></div></a>
+    <a class="card" href="https://leaflow.net/login" target="_blank"><div class="icon">L</div><div><div class="title">Leawlof</div><div class="desc">应用部署</div></div></a>
+  </div>
+</section>
 
-  <section>
-    <div class="section-head">工具</div>
-    <div class="grid">
-      <a class="card" href="https://obfuscator.io/legacy-playground" target="_blank"><div class="icon">JS</div><div><div class="title">JS Obfuscator</div><div class="desc">代码混淆</div></div></a>
-    </div>
-  </section>
+<!-- Tools -->
+<section>
+  <div class="section-head">监控 / 解码 / 检测</div>
+  <div class="grid">
+    <a class="card" href="#" target="_blank"><div class="icon">U</div><div><div class="title">Uptime Kuma</div><div class="desc">服务监控</div></div></a>
+    <a class="card" href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank"><div class="icon">CF</div><div><div class="title">CF Trace</div><div class="desc">网络检测</div></div></a>
+    <a class="card" href="https://ippure.com" target="_blank"><div class="icon">I</div><div><div class="title">IPPure</div><div class="desc">IP 查询</div></div></a>
+    <a class="card" href="https://scamalytics.com" target="_blank"><div class="icon">S</div><div><div class="title">Scamalytics</div><div class="desc">风险分析</div></div></a>
+    <a class="card" href="https://dnschecker.org" target="_blank"><div class="icon">D</div><div><div class="title">DNSChecker</div><div class="desc">DNS 检测</div></div></a>
+    <a class="card" href="https://proxyip.chatkg.qzz.io" target="_blank"><div class="icon">P</div><div><div class="title">ProxyIP</div><div class="desc">代理检测</div></div></a>
+    <a class="card" href="https://www.base64decode.org/zh/" target="_blank"><div class="icon">B</div><div><div class="title">Base64 Decode</div><div class="desc">编码解码</div></div></a>
+    <a class="card" href="https://obfuscator.io/legacy-playground" target="_blank"><div class="icon">JS</div><div><div class="title">Obfuscator</div><div class="desc">JS 混淆</div></div></a>
+  </div>
+</section>
 
-</main>
-
-</body>
-</html>
+<!-- DNS -->
+<section>
+  <div class="section-head">域名 / DNS</div>
+  <div class="grid">
+    <a class="card" href="https://dnshe.com" target="_blank"><div class="icon">D</div><div><div class="title">DNSHe</div><div class="desc">域名注册</div></div></a>
+    <a class="card" href="https://gv.uy" target="_blank"><div class="icon">G</div><div><div class="title">GV.UY</div><div class="desc">短域名</div></div></a>
+    <a class="card" href="#" target="_blank"><div class="icon">D</div><div><div class="title">Digital</div><div class="desc">域名注册</div></div></a>
+    <a class="card" href="#" target="_blank"><div class="icon">L</div><div><div class="title">L53</div><div class_
