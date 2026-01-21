@@ -12,7 +12,7 @@
       --border: #e6e8ec;
       --text: #111827;
       --muted: #6b7280;
-      --accent: #2563eb;
+      --accent: #4f46e5;
       --radius: 14px;
     }
 
@@ -23,6 +23,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Helvetica, Arial, sans-serif;
       background:
+        radial-gradient(600px 220px at 50% 120px, #e0e7ff, transparent),
         radial-gradient(900px 400px at 10% -10%, #e9edff, transparent),
         radial-gradient(700px 300px at 90% 0%, #eef2ff, transparent),
         var(--bg);
@@ -32,25 +33,45 @@
     header {
       max-width: 1100px;
       margin: auto;
-      padding: 56px 24px 24px;
+      padding: 56px 24px 28px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .title .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #3b82f6);
     }
 
     h1 {
-      margin: 0 0 18px;
+      margin: 0;
       font-size: 30px;
       font-weight: 700;
       letter-spacing: -.02em;
     }
 
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
     .search {
       position: relative;
-      max-width: 420px;
+      max-width: 460px;
     }
 
     .search::before {
       content: "/";
       position: absolute;
-      left: 14px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--muted);
@@ -59,12 +80,15 @@
 
     .search input {
       width: 100%;
-      padding: 14px 14px 14px 42px;
+      padding: 15px 16px 15px 44px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       background: #fff;
       font-size: 15px;
       outline: none;
+      box-shadow:
+        0 12px 30px rgba(79,70,229,.15),
+        inset 0 0 0 1px rgba(79,70,229,.08);
     }
 
     main {
@@ -103,14 +127,14 @@
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
     }
 
     .icon-wrap {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       background: #f1f5f9;
       display: flex;
       align-items: center;
@@ -121,6 +145,7 @@
     .icon-wrap img {
       width: 20px;
       height: 20px;
+      filter: grayscale(1);
     }
 
     .meta strong {
@@ -144,74 +169,79 @@
 </head>
 
 <body>
+
 <header>
-  <h1>导航</h1>
+  <div class="title">
+    <span class="dot"></span>
+    <h1>导航</h1>
+  </div>
+  <div class="subtitle">工具 · 部署 · 解码 · 检测</div>
+
   <div class="search">
-    <input id="search" placeholder="搜索站点…" />
+    <input id="search" placeholder="搜索 · GitHub / 部署 / 解码 / DNS…" />
   </div>
 </header>
 
 <main>
 
-  <!-- 常用 -->
   <section>
     <h2>常用</h2>
     <div class="grid" id="fav"></div>
   </section>
 
-<!-- 部署 / 平台 -->
-<section>
-  <h2>部署 / 平台</h2>
-  <div class="grid">
-    <a class="card" data-name="github 代码 托管" href="https://github.com" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg">
-      </div>
-      <div class="meta"><strong>GitHub</strong><span>代码托管</span></div>
-    </a>
+  <section>
+    <h2>部署 / 平台</h2>
+    <div class="grid">
 
-    <a class="card" data-name="cloudflare cdn 部署" href="https://dash.cloudflare.com" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
-      </div>
-      <div class="meta"><strong>Cloudflare</strong><span>部署 / CDN</span></div>
-    </a>
+      <a class="card" data-name="github 代码 托管" href="https://github.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg">
+        </div>
+        <div class="meta"><strong>GitHub</strong><span>代码托管</span></div>
+      </a>
 
-    <a class="card" data-name="render 部署 平台" href="https://dashboard.render.com/" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg">
-      </div>
-      <div class="meta"><strong>Render</strong><span>应用部署</span></div>
-    </a>
+      <a class="card" data-name="cloudflare cdn 部署" href="https://dash.cloudflare.com" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
+        </div>
+        <div class="meta"><strong>Cloudflare</strong><span>部署 / CDN</span></div>
+      </a>
 
-    <a class="card" data-name="爪云 claw cloud 部署" href="https://run.claw.cloud/" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloud.svg">
-      </div>
-      <div class="meta"><strong>ClawCloud Run</strong><span>应用部署</span></div>
-    </a>
+      <a class="card" data-name="render 部署 平台" href="https://dashboard.render.com/" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg">
+        </div>
+        <div class="meta"><strong>Render</strong><span>部署平台</span></div>
+      </a>
 
-    <a class="card" data-name="zeabur 部署 平台" href="https://zeabur.app/" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg">
-      </div>
-      <div class="meta"><strong>Zeabur</strong><span>应用部署</span></div>
-    </a>
+      <a class="card" data-name="爪云 claw cloud 部署" href="https://run.claw.cloud/" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg">
+        </div>
+        <div class="meta"><strong>爪云</strong><span>部署平台</span></div>
+      </a>
 
-    <a class="card" data-name="koyeb 部署 平台" href="https://www.koyeb.com/" target="_blank">
-      <div class="icon-wrap">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/koyeb.svg">
-      </div>
-      <div class="meta"><strong>Koyeb</strong><span>应用部署</span></div>
-    </a>
-  </div>
-</section>
+      <a class="card" data-name="zeabur 部署 平台" href="https://zeabur.app/" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/zeabur.svg">
+        </div>
+        <div class="meta"><strong>Zeabur</strong><span>部署平台</span></div>
+      </a>
 
+      <a class="card" data-name="koyeb 部署 平台" href="https://www.koyeb.com/" target="_blank">
+        <div class="icon-wrap">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/koyeb.svg">
+        </div>
+        <div class="meta"><strong>Koyeb</strong><span>部署平台</span></div>
+      </a>
 
-  <!-- 检测 / 解码 -->
+    </div>
+  </section>
+
   <section>
     <h2>检测 / 解码</h2>
     <div class="grid">
+
       <a class="card" data-name="ippure ip 查询" href="https://ippure.com" target="_blank">
         <div class="icon-wrap">
           <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/globe.svg">
@@ -226,45 +256,13 @@
         <div class="meta"><strong>Scamalytics</strong><span>风险分析</span></div>
       </a>
 
-      <a class="card" data-name="cf trace 网络" href="https://www.cloudflare.com/cdn-cgi/trace" target="_blank">
-        <div class="icon-wrap">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudflare.svg">
-        </div>
-        <div class="meta"><strong>CF Trace</strong><span>网络检测</span></div>
-      </a>
-
-      <a class="card" data-name="base64 编码 解码" href="https://www.base64decode.org/zh/" target="_blank">
-        <div class="icon-wrap">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/code.svg">
-        </div>
-        <div class="meta"><strong>Base64 Decode</strong><span>编码解码</span></div>
-      </a>
-
-      <a class="card" data-name="obfuscator 混淆 解码 js" href="https://obfuscator.io/" target="_blank">
+      <a class="card" data-name="obfuscator js 混淆" href="https://obfuscator.io/" target="_blank">
         <div class="icon-wrap">
           <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg">
         </div>
-        <div class="meta"><strong>Obfuscator</strong><span>代码混淆</span></div>
+        <div class="meta"><strong>Obfuscator</strong><span>JS 混淆</span></div>
       </a>
-    </div>
-  </section>
 
-  <!-- 域名 / DNS -->
-  <section>
-    <h2>域名 / DNS</h2>
-    <div class="grid">
-      <a class="card" data-name="dns dnshe 域名" href="https://dnshe.com" target="_blank">
-        <div class="icon-wrap">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/internetexplorer.svg">
-        </div>
-        <div class="meta"><strong>DNSHe</strong><span>DNS 查询</span></div>
-      </a>
-            <a class="card" data-name="gv.uy 域名" href="https://nic.gv.uy/" target="_blank">
-        <div class="icon-wrap">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg">
-        </div>
-        <div class="meta"><strong>GV.UY</strong><span>域名</span></div>
-      </a>
     </div>
   </section>
 
