@@ -7,36 +7,35 @@
 
 <style>
 :root{
-  --bg:#F2F7F2;
-  --panel:#FFFFFF;
   --cream:#FBF8F2;
+  --mint:#F2F7F2;
+  --panel:#FFFFFF;
   --text:#111827;
   --muted:#6B7280;
   --border:#E5E7EB;
   --accent:#4F6CFF;
 }
 [data-theme="dark"]{
-  --bg:#0F172A;
-  --panel:#020617;
   --cream:#020617;
+  --mint:#0F172A;
+  --panel:#020617;
   --text:#E5E7EB;
   --muted:#94A3B8;
   --border:#1E293B;
-  --accent:#7C83FF;
 }
 
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
+  background:var(--mint);
   color:var(--text);
 }
 
-/* Header */
+/* ===== 顶部奶白 ===== */
 header{
   background:var(--cream);
-  padding:56px 24px 40px;
+  padding:56px 24px 72px;
 }
 .header{
   max-width:1100px;
@@ -51,20 +50,21 @@ h1{
 h1::before{content:"●";color:var(--accent);font-size:14px}
 .sub{color:var(--muted);margin-bottom:24px}
 
-.topbar{
+.top{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
+.toggle{cursor:pointer;font-size:20px}
+
+.search{position:relative}
 .search input{
   width:360px;
   max-width:100%;
   padding:14px 16px 14px 40px;
   border-radius:999px;
   border:1px solid var(--border);
-  background:var(--panel);
 }
-.search{position:relative}
 .search::before{
   content:"/";
   position:absolute;
@@ -72,20 +72,16 @@ h1::before{content:"●";color:var(--accent);font-size:14px}
   transform:translateY(-50%);
   color:#9CA3AF;
 }
-.toggle{
-  cursor:pointer;
-  font-size:20px;
-}
 
-/* Main */
+/* ===== 主体奶绿 ===== */
 main{
   max-width:1100px;
-  margin:-20px auto 80px;
-  background:rgba(255,255,255,.6);
-  backdrop-filter:blur(10px);
+  margin:-48px auto 80px;
+  background:var(--mint);
   border-radius:28px;
-  padding:40px 32px;
+  padding:48px 32px;
 }
+
 section{margin-bottom:48px}
 h2{
   font-size:14px;
@@ -98,6 +94,7 @@ h2{
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
   gap:16px;
 }
+
 .card{
   background:var(--panel);
   border:1px solid var(--border);
@@ -110,21 +107,25 @@ h2{
   transition:.2s;
 }
 .card:hover{transform:translateY(-3px)}
+
 .icon{
   width:42px;height:42px;
   border-radius:12px;
   background:#F1F5F9;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .icon img{width:22px;height:22px}
+
 .meta strong{display:block}
 .meta span{font-size:13px;color:var(--muted)}
+
 .star{
   margin-left:auto;
-  font-size:18px;
   cursor:pointer;
   color:#FACC15;
-  opacity:.4;
+  opacity:.35;
 }
 .star.active{opacity:1}
 
@@ -136,86 +137,103 @@ footer{text-align:center;color:var(--muted);font-size:13px}
 
 <header>
   <div class="header">
-    <div class="topbar">
+    <div class="top">
       <h1>导航</h1>
-      <div class="toggle" id="themeToggle">🌙</div>
+      <div class="toggle" id="theme">🌙</div>
     </div>
-    <div class="sub">AI · 部署 · 监控 · DNS</div>
+    <div class="sub">工具 · 部署 · 解码 · 检测 · 监控 · AI</div>
     <div class="search">
-      <input id="search" placeholder="搜索 / ChatGPT / DNS / 部署…" />
+      <input id="search" placeholder="搜索 / GitHub / DNS / AI…" />
     </div>
   </div>
 </header>
 
 <main>
-  <section id="pinned"><h2>⭐ 常用 AI</h2><div class="grid"></div></section>
+  <section id="pinned"><h2>⭐ 常用</h2><div class="grid"></div></section>
   <section id="recent"><h2>🕘 最近使用</h2><div class="grid"></div></section>
-  <section id="ai"><h2>AI / 大模型</h2><div class="grid"></div></section>
+  <section id="content"></section>
 </main>
 
 <footer>© 2026 Navigation</footer>
 
 <script>
-/* =======================
-   JSON 数据配置区
-======================= */
-const sites = [
- {id:"chatgpt",cat:"ai",name:"ChatGPT",desc:"OpenAI",url:"https://chat.openai.com",icon:"openai"},
- {id:"gemini",cat:"ai",name:"Gemini",desc:"Google",url:"https://gemini.google.com",icon:"google"},
- {id:"deepseek",cat:"ai",name:"DeepSeek",desc:"国产模型",url:"https://www.deepseek.com",icon:"deepin"},
- {id:"claude",cat:"ai",name:"Claude",desc:"Anthropic",url:"https://claude.ai",icon:"anthropic"}
+const data = [
+ {cat:"AI 平台",id:"chatgpt",name:"ChatGPT",desc:"OpenAI",url:"https://chat.openai.com",icon:"openai"},
+ {cat:"AI 平台",id:"gemini",name:"Gemini",desc:"Google",url:"https://gemini.google.com",icon:"google"},
+ {cat:"AI 平台",id:"deepseek",name:"DeepSeek",desc:"国产模型",url:"https://www.deepseek.com",icon:"deepin"},
+ {cat:"AI 平台",id:"claude",name:"Claude",desc:"Anthropic",url:"https://claude.ai",icon:"anthropic"},
+
+ {cat:"部署 / 平台",id:"github",name:"GitHub",desc:"代码托管",url:"https://github.com",icon:"github"},
+ {cat:"部署 / 平台",id:"cloudflare",name:"Cloudflare",desc:"CDN / 部署",url:"https://dash.cloudflare.com",icon:"cloudflare"},
+ {cat:"部署 / 平台",id:"render",name:"Render",desc:"部署平台",url:"https://dashboard.render.com",icon:"render"},
+ {cat:"部署 / 平台",id:"koyeb",name:"Koyeb",desc:"部署平台",url:"https://www.koyeb.com",icon:"koyeb"},
+ {cat:"部署 / 平台",id:"zeabur",name:"Zeabur",desc:"部署平台",url:"https://zeabur.app",icon:"zeabur"},
+ {cat:"部署 / 平台",id:"claw",name:"爪云",desc:"Claw Cloud",url:"https://run.claw.cloud",icon:"cloudflare"},
+ {cat:"部署 / 平台",id:"leaflow",name:"Leawlof",desc:"Leaflow",url:"https://leaflow.net/login",icon:"leaflet"},
+
+ {cat:"监控 / 解码 / 检测",id:"uptime",name:"Uptime Kuma",desc:"服务监控",url:"https://ugyy.enico.de5.net/status/eniac",icon:"uptime"},
+ {cat:"监控 / 解码 / 检测",id:"cftrace",name:"CF Trace",desc:"网络检测",url:"https://www.cloudflare.com/cdn-cgi/trace",icon:"cloudflare"},
+ {cat:"监控 / 解码 / 检测",id:"ippure",name:"IPPure",desc:"IP 查询",url:"https://ippure.com",icon:"internetexplorer"},
+ {cat:"监控 / 解码 / 检测",id:"scam",name:"Scamalytics",desc:"风险检测",url:"https://scamalytics.com",icon:"shield"},
+ {cat:"监控 / 解码 / 检测",id:"dnscheck",name:"DNSChecker",desc:"DNS 检测",url:"https://dnschecker.org",icon:"dns"},
+ {cat:"监控 / 解码 / 检测",id:"proxyip",name:"ProxyIP",desc:"代理检测",url:"https://proxyip.chatkg.qzz.io",icon:"tor"},
+ {cat:"监控 / 解码 / 检测",id:"base64",name:"Base64 Decode",desc:"编码解码",url:"https://www.base64decode.org/zh/",icon:"code"},
+
+ {cat:"域名 / DNS",id:"dnshe",name:"DNSHe",desc:"DNS 查询",url:"https://dnshe.com",icon:"internetexplorer"},
+ {cat:"域名 / DNS",id:"gvuy",name:"gv.uy",desc:"短域名",url:"https://gv.uy",icon:"link"},
+ {cat:"域名 / DNS",id:"domain",name:"Domain Digital",desc:"域名注册",url:"https://dash.domain.digitalplat.org/auth/register",icon:"globe"}
 ];
 
-/* =======================
-   状态
-======================= */
-const pinned = JSON.parse(localStorage.getItem("pinned")||"[]");
-let recent = JSON.parse(localStorage.getItem("recent")||"[]");
+const pinned=JSON.parse(localStorage.getItem("pinned")||"[]");
+let recent=JSON.parse(localStorage.getItem("recent")||"[]");
 
-/* =======================
-   渲染
-======================= */
-const makeCard = s => {
+const content=document.getElementById("content");
+
+function card(d){
  const c=document.createElement("div");
  c.className="card";
  c.innerHTML=`
-  <div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${s.icon}.svg"></div>
-  <div class="meta"><strong>${s.name}</strong><span>${s.desc}</span></div>
-  <div class="star ${pinned.includes(s.id)?"active":""}">★</div>`;
+  <div class="icon"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${d.icon}.svg"></div>
+  <div class="meta"><strong>${d.name}</strong><span>${d.desc}</span></div>
+  <div class="star ${pinned.includes(d.id)?"active":""}">★</div>`;
  c.onclick=()=>{
-   recent=[s.id,...recent.filter(i=>i!==s.id)].slice(0,6);
-   localStorage.setItem("recent",JSON.stringify(recent));
-   window.open(s.url,"_blank");
+  recent=[d.id,...recent.filter(x=>x!==d.id)].slice(0,6);
+  localStorage.setItem("recent",JSON.stringify(recent));
+  window.open(d.url,"_blank");
  };
  c.querySelector(".star").onclick=e=>{
-   e.stopPropagation();
-   const i=pinned.indexOf(s.id);
-   i>-1?pinned.splice(i,1):pinned.push(s.id);
-   localStorage.setItem("pinned",JSON.stringify(pinned));
-   render();
+  e.stopPropagation();
+  pinned.includes(d.id)?pinned.splice(pinned.indexOf(d.id),1):pinned.push(d.id);
+  localStorage.setItem("pinned",JSON.stringify(pinned));
+  render();
  };
  return c;
-};
+}
 
 function render(){
- document.querySelectorAll(".grid").forEach(g=>g.innerHTML="");
+ content.innerHTML="";
+ document.querySelector("#pinned .grid").innerHTML="";
+ document.querySelector("#recent .grid").innerHTML="";
+
  pinned.forEach(id=>{
-  const s=sites.find(x=>x.id===id);
-  s && document.querySelector("#pinned .grid").append(makeCard(s));
+  const d=data.find(x=>x.id===id);
+  d&&document.querySelector("#pinned .grid").append(card(d));
  });
  recent.forEach(id=>{
-  const s=sites.find(x=>x.id===id);
-  s && document.querySelector("#recent .grid").append(makeCard(s));
+  const d=data.find(x=>x.id===id);
+  d&&document.querySelector("#recent .grid").append(card(d));
  });
- sites.filter(s=>s.cat==="ai").forEach(s=>{
-  document.querySelector("#ai .grid").append(makeCard(s));
+
+ [...new Set(data.map(d=>d.cat))].forEach(cat=>{
+  const s=document.createElement("section");
+  s.innerHTML=`<h2>${cat}</h2><div class="grid"></div>`;
+  data.filter(d=>d.cat===cat).forEach(d=>s.querySelector(".grid").append(card(d)));
+  content.append(s);
  });
 }
 render();
 
-/* =======================
-   搜索
-======================= */
+/* 搜索 */
 search.oninput=e=>{
  const v=e.target.value.toLowerCase();
  document.querySelectorAll(".card").forEach(c=>{
@@ -223,17 +241,12 @@ search.oninput=e=>{
  });
 };
 
-/* =======================
-   主题切换
-======================= */
-const toggle=document.getElementById("themeToggle");
-const saved=localStorage.getItem("theme");
-if(saved){document.documentElement.dataset.theme=saved}
-toggle.onclick=()=>{
+/* 主题 */
+theme.onclick=()=>{
  const t=document.documentElement.dataset.theme==="dark"?"":"dark";
  document.documentElement.dataset.theme=t;
  localStorage.setItem("theme",t);
- toggle.textContent=t==="dark"?"☀️":"🌙";
+ theme.textContent=t==="dark"?"☀️":"🌙";
 };
 </script>
 
